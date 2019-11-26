@@ -1,0 +1,165 @@
+alessandro_stoltenberg@Azure:~$ cat azurecreatecontainerregistry.sh
+#!/bin/bash
+
+# set execution context (if necessary)
+az account set --subscription sap-hands-on-nov2019-03
+
+# Set the resource group name and location for your server
+resourceGroupName=op1
+#location=northeurope
+
+az acr create -n azhandsonop1containerregistry -g resourceGroupName --sku Standard
+alessandro_stoltenberg@Azure:~$ ./azurecreatecontainerregistry.sh
+error retrieving default location: Resource group 'resourceGroupName' could not be found.
+alessandro_stoltenberg@Azure:~$ vim azurecreatecontainerregistry.sh
+alessandro_stoltenberg@Azure:~$ ./azurecreatecontainerregistry.sh
+NAME                           RESOURCE GROUP    LOCATION     SKU       LOGIN SERVER                              CREATION DATE         ADMIN ENABLED
+-----------------------------  ----------------  -----------  --------  ----------------------------------------  --------------------  ---------------
+azhandsonop1containerregistry  op1               northeurope  Standard  azhandsonop1containerregistry.azurecr.io  2019-11-26T13:17:59Z
+alessandro_stoltenberg@Azure:~$ cat azurecreatecontainerregistry.sh
+#!/bin/bash
+
+# set execution context (if necessary)
+az account set --subscription sap-hands-on-nov2019-03
+
+# Set the resource group name and location for your server
+resourceGroupName=op1
+#location=northeurope
+
+az acr create -n azhandsonop1containerregistry -g "$resourceGroupName" --sku Standard
+alessandro_stoltenberg@Azure:~$ docker images
+REPOSITORY                      TAG                      IMAGE ID            CREATED             SIZE
+<none>                          <none>                   ca96d6b3e1c5        2 hours ago         258MB
+<none>                          <none>                   7d7c89d7362b        2 hours ago         258MB
+<none>                          <none>                   f06bce433a3e        2 hours ago         1.81GB
+<none>                          <none>                   4b62a5d157e5        2 hours ago         1.81GB
+code_rockpaperscissors-server   latest                   4f0919e6ab5d        2 hours ago         258MB
+<none>                          <none>                   ee53b08bf313        2 hours ago         1.81GB
+microsoft/dotnet                2.1-sdk                  d7ec4dc56612        3 days ago          1.74GB
+microsoft/dotnet                2.1-aspnetcore-runtime   b3df7864b3e1        3 days ago          253MB
+microsoft/mssql-server-linux    latest                   314918ddaedf        11 months ago       1.35GB
+alessandro_stoltenberg@Azure:~$ az acr show
+az acr show: error: the following arguments are required: --name/-n
+usage: az acr show [-h] [--verbose] [--debug]
+                   [--output {json,jsonc,table,tsv,yaml,none}]
+                   [--query JMESPATH] [--subscription _SUBSCRIPTION] --name
+                   REGISTRY_NAME [--resource-group RESOURCE_GROUP_NAME]
+alessandro_stoltenberg@Azure:~$ az acr show azhandsonop1containerregistry
+az acr show: error: the following arguments are required: --name/-n
+usage: az acr show [-h] [--verbose] [--debug]
+                   [--output {json,jsonc,table,tsv,yaml,none}]
+                   [--query JMESPATH] [--subscription _SUBSCRIPTION] --name
+                   REGISTRY_NAME [--resource-group RESOURCE_GROUP_NAME]
+alessandro_stoltenberg@Azure:~$ az acr show --name azhandsonop1containerregistry
+NAME                           RESOURCE GROUP    LOCATION     SKU       LOGIN SERVER                              CREATION DATE         ADMIN ENABLED
+-----------------------------  ----------------  -----------  --------  ----------------------------------------  --------------------  ---------------
+azhandsonop1containerregistry  op1               northeurope  Standard  azhandsonop1containerregistry.azurecr.io  2019-11-26T13:17:59Z
+alessandro_stoltenberg@Azure:~$ az acr show --name azhandsonop1containerregistry --output json
+{
+  "adminUserEnabled": false,
+  "creationDate": "2019-11-26T13:17:59.194769+00:00",
+  "id": "/subscriptions/9f3bb259-abb4-4b70-898a-80813873b0ac/resourceGroups/op1/providers/Microsoft.ContainerRegistry/registries/azhandsonop1containerregistry",
+  "location": "northeurope",
+  "loginServer": "azhandsonop1containerregistry.azurecr.io",
+  "name": "azhandsonop1containerregistry",
+  "networkRuleSet": null,
+  "policies": {
+    "quarantinePolicy": {
+      "status": "disabled"
+    },
+    "retentionPolicy": {
+      "days": 7,
+      "lastUpdatedTime": "2019-11-26T13:18:01.624079+00:00",
+      "status": "disabled"
+    },
+    "trustPolicy": {
+      "status": "disabled",
+      "type": "Notary"
+    }
+  },
+  "provisioningState": "Succeeded",
+  "resourceGroup": "op1",
+  "sku": {
+    "name": "Standard",
+    "tier": "Standard"
+  },
+  "status": null,
+  "storageAccount": null,
+  "tags": {},
+  "type": "Microsoft.ContainerRegistry/registries"
+}
+alessandro_stoltenberg@Azure:~$ az acr login azhandsonop1containerregistry.azurecr.io
+az acr login: error: the following arguments are required: --name/-n
+usage: az acr login [-h] [--verbose] [--debug]
+                    [--output {json,jsonc,table,tsv,yaml,none}]
+                    [--query JMESPATH] [--subscription _SUBSCRIPTION] --name
+                    REGISTRY_NAME [--resource-group RESOURCE_GROUP_NAME]
+                    [--suffix TENANT_SUFFIX] [--username USERNAME]
+                    [--password PASSWORD]
+alessandro_stoltenberg@Azure:~$ az acr login --name azhandsonop1containerregistry
+This command requires running the docker daemon, which is not supported in Azure Cloud Shell.
+alessandro_stoltenberg@Azure:~$ az acr login -n azhandsonop1containerregistry
+This command requires running the docker daemon, which is not supported in Azure Cloud Shell.
+alessandro_stoltenberg@Azure:~$ docker images
+REPOSITORY                      TAG                      IMAGE ID            CREATED             SIZE
+<none>                          <none>                   ca96d6b3e1c5        2 hours ago         258MB
+<none>                          <none>                   7d7c89d7362b        2 hours ago         258MB
+<none>                          <none>                   f06bce433a3e        2 hours ago         1.81GB
+<none>                          <none>                   4b62a5d157e5        2 hours ago         1.81GB
+code_rockpaperscissors-server   latest                   4f0919e6ab5d        2 hours ago         258MB
+<none>                          <none>                   ee53b08bf313        2 hours ago         1.81GB
+microsoft/dotnet                2.1-sdk                  d7ec4dc56612        3 days ago          1.74GB
+microsoft/dotnet                2.1-aspnetcore-runtime   b3df7864b3e1        3 days ago          253MB
+microsoft/mssql-server-linux    latest                   314918ddaedf        11 months ago       1.35GB
+alessandro_stoltenberg@Azure:~$ docker push 4f0919e6ab5d
+The push refers to repository [docker.io/library/4f0919e6ab5d]
+An image does not exist locally with the tag: 4f0919e6ab5d
+alessandro_stoltenberg@Azure:~$ docker push
+"docker push" requires exactly 1 argument.
+See 'docker push --help'.
+
+Usage:  docker push [OPTIONS] NAME[:TAG]
+
+Push an image or a repository to a registry
+alessandro_stoltenberg@Azure:~$ $ docker tag code_rockpaperscissors-server azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server
+bash: $: command not found
+alessandro_stoltenberg@Azure:~$  docker tag code_rockpaperscissors-server azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server
+alessandro_stoltenberg@Azure:~$ docker images
+REPOSITORY                                                                       TAG                      IMAGE ID            CREATED             SIZE
+<none>                                                                           <none>                   ca96d6b3e1c5        3 hours ago         258MB
+<none>                                                                           <none>                   7d7c89d7362b        3 hours ago         258MB
+<none>                                                                           <none>                   f06bce433a3e        3 hours ago         1.81GB
+<none>                                                                           <none>                   4b62a5d157e5        3 hours ago         1.81GB
+azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server   latest                   4f0919e6ab5d        3 hours ago         258MB
+code_rockpaperscissors-server                                                    latest                   4f0919e6ab5d        3 hours ago         258MB
+<none>                                                                           <none>                   ee53b08bf313        3 hours ago         1.81GB
+microsoft/dotnet                                                                 2.1-sdk                  d7ec4dc56612        3 days ago          1.74GB
+microsoft/dotnet                                                                 2.1-aspnetcore-runtime   b3df7864b3e1        3 days ago          253MB
+microsoft/mssql-server-linux                                                     latest                   314918ddaedf        11 months ago       1.35GB
+alessandro_stoltenberg@Azure:~$ docker push azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server
+The push refers to repository [azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server]
+6725aa08f68b: Preparing
+f9fc093eb2db: Preparing
+c5b129061374: Preparing
+a2f9ed91e120: Preparing
+75bb365bb264: Preparing
+99b5261d397c: Waiting
+unauthorized: authentication required
+alessandro_stoltenberg@Azure:~$ docker login azhandsonop1containerregistry.azurecr.io
+Username: azhandsonop1containerregistry
+Password:
+WARNING! Your password will be stored unencrypted in /home/alessandro_stoltenberg/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+alessandro_stoltenberg@Azure:~$ docker push azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server
+The push refers to repository [azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server]
+6725aa08f68b: Pushed
+f9fc093eb2db: Pushed
+c5b129061374: Pushed
+a2f9ed91e120: Pushed
+75bb365bb264: Pushed
+99b5261d397c: Pushed
+latest: digest: sha256:81840b78e6a3874e8133e173bb3abb8a81c681f0f630063b175525bfcb6ad43e size: 1581
+alessandro_stoltenberg@Azure:~$
