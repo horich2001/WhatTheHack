@@ -1,0 +1,170 @@
+alessandro_stoltenberg@Azure:~$ cat .bash_history
+git@github.com:szeort/WhatTheHack.git
+git clone git@github.com:szeort/WhatTheHack.git
+git clone https://github.com/szeort/WhatTheHack.git
+az account list -o table
+az account set --subscription az account set --subscription <subscription-id>
+az account set --subscription 9f3bb259-abb4-4b70-898a-80813873b0ac
+RG=alessandrorg
+NSG=alessandrodockerhost
+VM=alessandrodockerhostvm
+NSG=alessandrodockerhostnsg
+az group create -n $RG -l westeur
+az group create -n $RG -l westeurope
+az network nsg create -g $RG -n $NSG
+az network nsg rule create -g $RG --nsg-name $NSG -n http --priority 1000 --source-address-prefixes '*' --source-port-ranges '*' --destination-address-prefixes '*' --destination-port-ranges 80 --access Allow --protocol Tcp --description "http"
+ls
+cd WhatTheHack/
+ll
+cd 005-RockPaperScissorsBoom/
+ll
+cd Student/
+ll
+cd Resources/
+ll
+cd Code/
+ll
+az account list -o table
+az network nsg rule create -g $RG --nsg-name $NSG -n docker --priority 1010 --source-address-prefixes '*' --source-port-ranges '*' --destination-address-prefixes '*' --destination-port-ranges 2375-2376 --access Allow --protocol Tcp --description "docker"
+az network nsg rule create -g $RG --nsg-name $NSG -n ssh --priority 1020 --source-address-prefixes '*' --source-port-ranges '*' --destination-address-prefixes '*' --destination-port-ranges 22 --access Allow --protocol Tcp --description "ssh"
+cat Dockerfile-
+ll
+cat docker.yaml
+az vm create -n $VM -g $RG --image Canonical:UbuntuServer:18.04-LTS:latest --nsg $NSG --admin-username dockeradmin --admin-password d0cker@dminzz --authentication-type password --custom-data docker.yaml
+export DOCKER_HOST=tcp://52.174.26.12:2375/
+export DOCKER_TLS_VERIFY=
+docker images
+docker ps
+docker images
+docker ps
+cd ~
+mkdir tools
+curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o $HOME/tools/docker-compose
+chmod +x $HOME/tools/docker-compose
+echo "export PATH=$PATH:$HOME/tools" >> ~/.bashrc
+source ~/.bashrc
+docker-compose --version
+cd /WhatTheHack/005-RockPaperScissorsBoom/student/Resources/Code
+cd WhatTheHack/005-RockPaperScissorsBoom/student/Resources/Code
+ll
+cd WhatTheHack/
+cd 005-RockPaperScissorsBoom/Student/Resources/
+cd 005-RockPaperScissorsBoom/Student/Resources/Code
+cd Code/
+ll
+cat RockPaperScissor.Core/
+cd RockPaperScissor.Core/
+ll
+exit
+cd 005-RockPaperScissorsBoom/Student/Resources/Code
+cd WhatTheHack/005-RockPaperScissorsBoom/Student/Resources/Code
+ssh $DOCKER_HOST
+az show vm --output table
+az vm show --output table
+az vm list --output table
+cd ~
+az configure
+az vm list
+docker ps
+export DOCKER_HOST=tcp://<vm-ip>:2375/
+export DOCKER_HOST=tcp://137.135.160.110:2375/
+docker ps
+ls
+docker ps
+docker image
+docker images
+docker ps
+cd WhatTheHack/005-RockPaperScissorsBoom/Student/Resources/Code/
+ls
+docker-compose up
+bg
+docker ps
+fg
+docker ps
+cd ~
+touch azuresql.sh
+vim azuresql.sh
+az list account
+az show account
+az account show
+az rg show
+az resourcegroup show
+az resource show
+az --resource-group show
+az --resource-group list
+az resource show  --resource-group
+az resource list
+ll
+chmod +x azuresql.sh
+./azuresql.sh
+cd WhatTheHack/005-RockPaperScissorsBoom/Student/Resources/Code/
+ll
+code docker-compose.yaml
+docker ps
+docker-compose down
+docker ps
+docker-compose up
+code docker-compose.yaml
+docker-compose up
+docker-compose down
+docker-compose up
+bg
+fg
+bg
+az acr list
+cd ~
+cd WhatTheHack/
+ll
+git status
+ll
+cd ..
+ll
+vim azurecreatecontainerregistry
+mv azurecreatecontainerregistry azurecreatecontainerregistry.sh
+chmod +x azurecreatecontainerregistry.sh
+docker images
+docker image
+docker image inspect # set execution context (if necessary)
+az account set --subscription sap-hands-on-nov2019-03
+# Set the resource group name and location for your server
+resourceGroupName=op1
+docker image inspect ca96d6b3e1c5
+ll
+cat azurecreatecontainerregistry.sh
+./azurecreatecontainerregistry.sh
+vim azurecreatecontainerregistry.sh
+./azurecreatecontainerregistry.sh
+cat azurecreatecontainerregistry.sh
+docker images
+az acr show
+az acr show azhandsonop1containerregistry
+az acr show --name azhandsonop1containerregistry
+az acr show --name azhandsonop1containerregistry --output json
+az acr login azhandsonop1containerregistry.azurecr.io
+az acr login --name azhandsonop1containerregistry
+az acr login -n azhandsonop1containerregistry
+docker images
+docker push 4f0919e6ab5d
+docker push
+$ docker tag code_rockpaperscissors-server azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server
+docker images
+docker push azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server
+docker login azhandsonop1containerregistry.azurecr.io
+docker push azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server
+az appservice plan create -g MyResourceGroup -n MyPlan \
+az appservice plan create -g op1 -n azhandsonop1plan --is-linux --number-of-workers 1 --sku S1
+az webapp create -g op1 -p azhandsonop1plan -n azhandsonop1rockpaperscissorsserver -i azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server
+az webapp show
+az webapp show --name azhandsonop1rockpaperscissorsserver --output json
+az webapp show --name azhandsonop1rockpaperscissorsserver -g op1 --output json
+az webapp create -g op1 -p azhandsonop1plan -n azhandsonop1rockpaperscissorsserver -i azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server -s azhandsonop1containerregistry -w XumcuQu1H9W/13/vjfFoT51ea7D0YaMf
+az webapp show --name azhandsonop1rockpaperscissorsserver -g op1 --output json
+az webapp create -g op1 -p azhandsonop1plan -n azhandsonop1rockpaperscissorsserver -i azhandsonop1containerregistry.azurecr.io/azhandsonop1/rockpaperscissors-server -s azhandsonop1containerregistry -w XumcuQu1H9W/13/vjfFoT51ea7D0YaMf
+az webapp show --name azhandsonop1rockpaperscissorsserver -g op1 --output json
+cd WhatTheHack/005-RockPaperScissorsBoom/Student/Resources/Code/
+cat docker-compose.yaml
+cd ~
+cat .bashrc
+vim .bashrc
+# Set the resource group name and location for your server
+source .bashrc
