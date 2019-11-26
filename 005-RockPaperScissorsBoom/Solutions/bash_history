@@ -168,3 +168,26 @@ cat .bashrc
 vim .bashrc
 # Set the resource group name and location for your server
 source .bashrc
+cat .bash_history
+ll
+cd WhatTheHack/
+ll
+cd 005-RockPaperScissorsBoom/
+ll
+az app
+az apps
+az --help
+az --help | grep app
+az appconfig
+az appconfig show
+az appconfig show -n azhandsonop1rockpaperscissorsserver
+az appconfig show -n azhandsonop1rockpaperscissorsserver -g op1
+az webapp
+az webapp config
+az webapp config show
+az webapp config show -n azhandsonop1rockpaperscissorsserver
+az webapp config show -n azhandsonop1rockpaperscissorsserver -g op1
+az webapp config show -n azhandsonop1rockpaperscissorsserver -g op1 --output json
+az webapp config show -n azhandsonop1rockpaperscissorsserver -g op1 --output json | grep nsights
+ls
+ll
