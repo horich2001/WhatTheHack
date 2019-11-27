@@ -24,7 +24,7 @@ stages:
       displayName: Build an image
       inputs:
         command: buildAndPush
-        containerRegistry: 'azhandsonop1containerregistry'
+        containerRegistry: 'ACR'
         repository: 'azhandsonop1/rockpaperscissors-server'
         dockerfile: '005-RockPaperScissorsBoom/Student/Resources/Code/Dockerfile-Server'
         tags: |
